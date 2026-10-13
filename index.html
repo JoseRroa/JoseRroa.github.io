@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="José Ramón Roa · QA Engineer Semi Senior · API Testing · SQL Server">
+<link rel="icon" href="foto.png">
+<title>José Ramón Roa · QA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one centered column (~880px); hero with photo + actions, then sections as label-left / content-right rows that stack on phones */
+:root {
+  --bg: #F3F6F9;
+  --surface: #FFFFFF;
+  --fg: #1C2A38;
+  --muted: #5B6B7B;
+  --line: #DCE3EA;
+  --navy: #1F3349;
+  --accent: #2F7FA8;
+  --accent-soft: #E3EFF6;
+  --pass: #2E8B57;
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1821; --surface: #16222E; --fg: #E4ECF3; --muted: #93A5B6; --line: #26384A;
+    --navy: #CFE0EE; --accent: #5BB0DA; --accent-soft: #19324A; --pass: #4FBF84;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1821; --surface: #16222E; --fg: #E4ECF3; --muted: #93A5B6; --line: #26384A;
+  --navy: #CFE0EE; --accent: #5BB0DA; --accent-soft: #19324A; --pass: #4FBF84;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-sans); font-size: 16px; line-height: 1.6;
+  padding-inline: 20px; padding-block: 48px 64px;
+}
+.wrap { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; color: var(--navy); }
+p { margin: 0; }
+a { color: var(--accent); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 148px 1fr; gap: 32px; align-items: center; }
+.photo { width: 148px; height: 148px; border-radius: 50%; border: 3px solid var(--accent); object-fit: cover; background: var(--surface); }
+.hero-text { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.status { font-family: var(--font-mono); font-size: 13px; color: var(--pass); display: inline-flex; align-items: center; gap: 8px; }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--pass); }
+h1 { font-size: clamp(2rem, 5vw, 2.75rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.01em; }
+.role { font-size: 1.15rem; font-weight: 500; color: var(--accent); }
+.summary { color: var(--muted); max-width: 62ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 8px;
+  font: 600 15px var(--font-sans); text-decoration: none; cursor: pointer; border: 1.5px solid var(--accent);
+}
+.btn-primary { background: var(--accent); color: var(--surface); }
+.btn-primary:hover { filter: brightness(1.08); }
+.btn-ghost { background: transparent; color: var(--accent); }
+.btn-ghost:hover { background: var(--accent-soft); }
+.btn svg { width: 18px; height: 18px; }
+.note { font-size: 13px; color: var(--muted); min-height: 1.2em; }
+
+/* sections */
+section { display: grid; grid-template-columns: 170px 1fr; gap: 24px; border-top: 1px solid var(--line); padding-top: 28px; }
+.label { font-family: var(--font-mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); padding-top: 3px; }
+.content { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+
+.results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.result { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 6px; }
+.result .k { font-size: 1.6rem; font-weight: 700; color: var(--accent); line-height: 1.2; }
+.result p { font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+
+.job { display: flex; flex-direction: column; gap: 6px; }
+.job-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; align-items: baseline; }
+.job h3 { font-size: 1.1rem; font-weight: 600; }
+.dates { font-family: var(--font-mono); font-size: 13px; color: var(--accent); font-variant-numeric: tabular-nums; }
+.org { font-size: 14.5px; color: var(--muted); }
+.job ul { margin: 6px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.job li::marker { color: var(--accent); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-family: var(--font-mono); font-size: 13.5px; padding: 5px 12px; border-radius: 999px; background: var(--accent-soft); color: var(--navy); }
+.chip-out { background: transparent; border: 1px solid var(--line); color: var(--fg); }
+.sub { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 8px; }
+
+.list { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; justify-content: space-between; gap: 4px 16px; flex-wrap: wrap; }
+.row b { font-weight: 600; }
+.row span { color: var(--muted); font-size: 14.5px; }
+.row .yr { font-family: var(--font-mono); font-size: 13px; color: var(--accent); }
+
+.contact { display: flex; flex-direction: column; gap: 10px; }
+.contact-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.mono { font-family: var(--font-mono); font-size: 15px; }
+.copy { font: 500 13px var(--font-sans); padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; }
+footer { font-size: 13px; color: var(--muted); text-align: center; }
+
+@media (max-width: 640px) {
+  body { padding-block: 28px 48px; }
+  .hero { grid-template-columns: 1fr; gap: 20px; }
+  .photo { width: 112px; height: 112px; }
+  section { grid-template-columns: 1fr; gap: 14px; }
+  .results { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .btn { transition: background .15s, filter .15s; }
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="hero">
+    <img class="photo" src="foto.png" alt="Foto de José Ramón Roa">
+    <div class="hero-text">
+      <span class="status">Abierto a nuevas oportunidades</span>
+      <h1>José Ramón Roa</h1>
+      <p class="role">QA Engineer Semi Senior · API Testing · SQL Server</p>
+      <p class="summary">Más de 4 años asegurando la calidad de software en banca y telecomunicaciones. Pruebas funcionales, de regresión, de integración y de API, con validación de datos en SQL Server. Contador Público de formación, con comprensión del negocio financiero.</p>
+      <div class="actions">
+        <a class="btn btn-primary" id="dl" href="CV_Jose_Ramon_Roa_QA.pdf" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          Descargar CV
+        </a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/jose-roa-7956a9259/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <div class="label">Resultados</div>
+    <div class="content">
+      <div class="results">
+        <div class="result"><span class="k">−85%</span><p>en tiempos de respuesta de un portal financiero con IA generativa, como parte del equipo de pruebas.</p></div>
+        <div class="result"><span class="k">Menos bugs</span><p>en producción gracias a planes de regresión exhaustivos.</p></div>
+        <div class="result"><span class="k">Más cobertura</span><p>de pruebas móviles en múltiples dispositivos con BrowserStack.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Experiencia</div>
+    <div class="content">
+      <div class="job">
+        <div class="job-head"><h3>QA Engineer Semi Senior</h3><span class="dates">May 2023 – hoy</span></div>
+        <p class="org">Smart Testing · Cliente: Banco BHD (República Dominicana) · Remoto</p>
+        <ul>
+          <li>Diseño y ejecución del plan de pruebas de un portal financiero basado en IA generativa (GPT).</li>
+          <li>Planes de regresión, pruebas funcionales, de integración y de estrés.</li>
+          <li>Pruebas mobile con BrowserStack y validación de datos con SQL.</li>
+          <li>Gestión de defectos con evidencias en Azure DevOps hasta su cierre.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head"><h3>Quality Assurance Analyst</h3><span class="dates">Ene 2021 – May 2023</span></div>
+        <p class="org">Consorcio Empresarial Austral · Lima, Perú · Freelance, híbrido</p>
+        <ul>
+          <li>Análisis de documentación funcional y diseño de casos de prueba.</li>
+          <li>Pruebas funcionales, de API y de performance.</li>
+          <li>Validación de datos con SQL y seguimiento del ciclo de vida de los defectos.</li>
+        </ul>
+      </div>
+      <div class="job">
+        <div class="job-head"><h3>QA Tester</h3><span class="dates">Oct 2018 – Feb 2019</span></div>
+        <p class="org">Pronet21 · Maracay, Venezuela</p>
+        <ul>
+          <li>Pruebas funcionales del sistema ECONODAT y validación de datos en base de datos.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Herramientas</div>
+    <div class="content">
+      <div>
+        <p class="sub">Herramientas</p>
+        <div class="chips">
+          <span class="chip">Jira</span><span class="chip">Xray</span><span class="chip">Azure DevOps</span>
+          <span class="chip">Postman</span><span class="chip">Bruno</span><span class="chip">Swagger</span>
+          <span class="chip">SQL Server</span><span class="chip">MySQL</span><span class="chip">BrowserStack</span>
+          <span class="chip">Cypress (básico)</span>
+        </div>
+      </div>
+      <div>
+        <p class="sub">Tipos de prueba</p>
+        <div class="chips">
+          <span class="chip chip-out">Funcionales</span><span class="chip chip-out">Regresión</span><span class="chip chip-out">Integración</span>
+          <span class="chip chip-out">API</span><span class="chip chip-out">Performance y estrés</span><span class="chip chip-out">Mobile</span>
+          <span class="chip chip-out">Soluciones con IA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Formación</div>
+    <div class="content list">
+      <div class="row"><div><b>Software Tester Accredited Certification</b><br><span>International Software Test Institute</span></div><span class="yr">2026</span></div>
+      <div class="row"><div><b>Automatización con Cypress</b><br><span>Pushing IT</span></div><span class="yr">2024</span></div>
+      <div class="row"><div><b>Introducción a QA</b><br><span>Egg · Argentina Programa 4.0</span></div><span class="yr">2023</span></div>
+      <div class="row"><div><b>Software Tester QA</b><br><span>EducaciónIT</span></div><span class="yr">2022</span></div>
+      <div class="row"><div><b>Licenciatura en Contaduría Pública</b><br><span>Venezuela</span></div><span class="yr">2016</span></div>
+      <div class="row"><div><b>Idiomas</b><br><span>Español nativo · Inglés intermedio</span></div><span class="yr"></span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Contacto</div>
+    <div class="content contact">
+      <div class="contact-line"><a class="mono" id="email" href="mailto:roa3189@gmail.com">roa3189@gmail.com</a><button class="copy" id="copy" type="button">Copiar email</button></div>
+      <p class="org">Buenos Aires, Argentina · Disponible para trabajo remoto o híbrido</p>
+    </div>
+  </section>
+
+  <footer>© 2026 José Ramón Roa</footer>
+</div>
+
+<script>
+(function () {
+  const copyBtn = document.getElementById("copy");
+  copyBtn.addEventListener("click", function () {
+    const email = document.getElementById("email");
+    const done = function () { copyBtn.textContent = "Copiado"; setTimeout(function () { copyBtn.textContent = "Copiar email"; }, 1800); };
+    try {
+      navigator.clipboard.writeText(email.textContent).then(done, function () { select(email); });
+    } catch (e) { select(email); }
+  });
+  function select(el) {
+    const r = document.createRange(); r.selectNodeContents(el);
+    const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+})();
+</script>
+
+</body>
+</html>
